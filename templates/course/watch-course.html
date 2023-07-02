@@ -164,10 +164,11 @@
                            {{video.title}}
                     </h2>
 
-                    <div class="video-wrapper">
+                    <a href="https://www.youtube.com/watch?v={{video.youtube_id}}" class="d-block sk-thumbnail rounded mb-8" data-fancybox>
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/{{video.youtube_id}}" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    
+
+                        <img class="rounded shadow-light-lg" src="/{{video.thumbnail}}" alt="...">
+                    </a>
 
                     <h3 class="">Course Description</h3>
 
