@@ -20,6 +20,8 @@ import razorpay
 client = razorpay.Client(auth=(KEY_ID, KEY_SECRET))
 
 
+
+
 def BASE(request):
     return render(request, 'base.html')
 
@@ -257,29 +259,3 @@ def WATCH_COURSE(request,slug):
 
 
 
-
-def password_reset_request(request):
-    if request.method == 'POST':
-        form = PasswordResetForm(request.POST)
-        if form.is_valid():
-            form.save(
-                request=request,
-                use_https=request.is_secure(),
-                subject_template_name='registration/password_reset_subject.txt',
-                email_template_name='registration/password_reset_email.html',
-            )
-            messages.success(request, 'Vui lòng kiểm tra email để đặt lại mật khẩu.')
-            return redirect('registration/password_reset_done')
-    else:
-        form = PasswordResetForm()
-    return render(request, 'registration/password_reset.html', {'form': form})
-
-def password_reset_done(request):
-    return render(request, 'registration/password_reset_done.html')
-
-def password_reset_confirm(request, uidb64, token):
-    # Xử lý yêu cầu đặt lại mật khẩu và trả về trang xác nhận đặt lại mật khẩu thành công
-    return render(request, 'registration/password_reset_confirm.html')
-
-def password_reset_complete(request):
-    return render(request, 'registration/password_reset_complete.html')

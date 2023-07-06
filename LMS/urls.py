@@ -4,6 +4,8 @@ from . import views, user_login
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.contrib.auth import views as auth_views
+
 app_name = 'app'
 urlpatterns = [
                   path('admin/', admin.site.urls),
@@ -23,12 +25,12 @@ urlpatterns = [
                   path('accounts/profile/update', user_login.PROFILE_UPDATE, name='profile_update'),
                   path('checkout/<slug:slug>', views.CHECKOUT, name='checkout'),
 
-
-                  path('password_reset/', views.password_reset_request, name='password_reset'),
-                  path('password_reset/done/', views.password_reset_done, name='password_reset_done'),
-                  path('reset/<uidb64>/<token>/', views.password_reset_confirm, name='password_reset_confirm'),
-                  path('reset/done/', views.password_reset_complete, name='password_reset_complete'),
-
+                  path('reset_password/', auth_views.PasswordResetView.as_view(), name="reset_password"),
+                  path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
+                  path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(),
+                       name="password_reset_confirm"),
+                  path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(),
+                       name="password_reset_complete"),
 
                   path('my-course/', views.MY_COURSE, name="my_course"),
                   path('verify_payment/', views.VERIFY_PAYMENT, name="verify_payment"),
